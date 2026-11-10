@@ -1,18 +1,25 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
-from app.core.database import engine, Base
-import app.models  # Registers models with Base.metadata
 
-Base.metadata.create_all(bind=engine)
+app = FastAPI(title="QuantLab API", version="1.0.0")
 
-app = FastAPI(
-    title="QuantLab API",
-    description="Quantitative Research Workstation Engine",
-    version="0.1.0"
+# Allow requests from Next.js frontend
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")
-def read_root():
-    return {"project": "QuantLab", "status": "running"}
+def root():
+    return {"message": "QuantLab API Base Endpoint"}
