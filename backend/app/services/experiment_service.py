@@ -15,6 +15,15 @@ def save_experiment(db: Session, experiment_in: ExperimentCreate) -> Experiment:
     db.refresh(db_exp)
     return db_exp
 
+def delete_experiment(db: Session, experiment_id: int) -> bool:
+    exp = db.query(Experiment).filter(Experiment.id == experiment_id).first()
+    if not exp:
+        return False
+    db.delete(exp)
+    db.commit()
+    return True
+
+
 def get_experiments(db: Session, experiment_type: Optional[str] = None) -> List[Experiment]:
     query = db.query(Experiment)
     if experiment_type:

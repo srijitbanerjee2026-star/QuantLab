@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from pydantic_settings import BaseSettings
 from pydantic import ConfigDict
 
@@ -11,7 +13,8 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = "quantlab"
     DATABASE_URL: str | None = None
 
-    model_config = ConfigDict(env_file=".env", extra="ignore")
+    # Resolve .env next to the backend package so it loads no matter where the server is started from.
+    model_config = ConfigDict(env_file=str(Path(__file__).resolve().parents[2] / ".env"), extra="ignore")
 
     def get_database_url(self) -> str:
         if self.DATABASE_URL:

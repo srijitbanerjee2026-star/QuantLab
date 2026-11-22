@@ -1,0 +1,20 @@
+# QuantLab backend (FastAPI). Install with:  python -m venv venv && venv\Scripts\pip install -r requirements.txt
+# Run with:  python -m uvicorn app.main:app --port 8000
+# Test with: python -m pytest -q tests
+fastapi==0.162.2
+uvicorn==0.54.0
+SQLAlchemy==2.0.57
+psycopg2-binary==2.9.13
+pydantic==2.14.3
+pydantic-settings==2.15.0
+python-dotenv==1.2.4
+pandas==2.3.3
+numpy==2.2.6
+scipy==1.15.3
+scikit-learn==1.7.2
+yfinance==1.8.0
+requests==2.34.2
+
+# tests
+pytest==9.2.0
+httpx==0.28.1

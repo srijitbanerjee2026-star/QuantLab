@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional
 
@@ -18,3 +18,9 @@ def list_experiments(
     db: Session = Depends(get_db)
 ):
     return experiment_service.get_experiments(db=db, experiment_type=experiment_type)
+
+
+@router.delete("/{experiment_id}", status_code=204)
+def remove_experiment(experiment_id: int, db: Session = Depends(get_db)):
+    if not experiment_service.delete_experiment(db=db, experiment_id=experiment_id):
+        raise HTTPException(status_code=404, detail="Experiment not found")

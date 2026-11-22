@@ -16,3 +16,10 @@ class PortfolioOptimizationResponse(BaseModel):
     equal_weight: PortfolioWeightsResponse
     max_sharpe: PortfolioWeightsResponse
     min_volatility: PortfolioWeightsResponse
+
+
+class FrontierRequest(BaseModel):
+    symbols: List[str]
+    years: float = 3.0
+    risk_free_rate: float = 0.02
+    max_weight: float = 1.0

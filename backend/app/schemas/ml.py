@@ -11,3 +11,12 @@ class ModelTrainResponse(BaseModel):
     model_type: str
     metrics: Dict[str, float]
     latest_prediction: Dict[str, Any]
+
+
+class ModelEvaluateRequest(BaseModel):
+    symbol: str
+    model_type: str = "random_forest"  # logistic_regression | random_forest | gradient_boosting
+    years: float = 6.0
+    min_train: int = 252
+    step: int = 21
+    cost_bps: float = 5.0

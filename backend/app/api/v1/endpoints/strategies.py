@@ -16,7 +16,13 @@ def execute_backtest(payload: BacktestRequest, db: Session = Depends(get_db)):
             strategy_type=payload.strategy_type,
             initial_capital=payload.initial_capital,
             short_w=payload.short_window,
-            long_w=payload.long_window
+            long_w=payload.long_window,
+            start_date=payload.start_date,
+            end_date=payload.end_date,
+            cost_bps=payload.cost_bps,
+            benchmark=payload.benchmark,
+            rsi_low=payload.rsi_low,
+            rsi_high=payload.rsi_high,
         )
         if not results:
             raise HTTPException(status_code=404, detail=f"No market data found for '{payload.symbol}'.")

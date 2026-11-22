@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.core.database import get_db
@@ -17,4 +17,4 @@ def db_health_check(db: Session = Depends(get_db)):
             return {"database_status": "connected", "engine": "PostgreSQL (Supabase)"}
         return {"database_status": "error", "details": "Unexpected query result"}
     except Exception as e:
-        return {"database_status": "disconnected", "error": str(e)}
+        raise HTTPException(status_code=503, detail="Database disconnected")

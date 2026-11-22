@@ -52,3 +52,6 @@ def get_market_data(db: Session, symbol: str, start_date: date = None, end_date:
     if end_date:
         query = query.filter(MarketData.date <= end_date)
     return query.order_by(MarketData.date.asc()).all()
+
+# Alias for compatibility with feature service and tests
+fetch_and_store_market_data = fetch_and_store_historical_data

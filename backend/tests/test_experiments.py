@@ -19,3 +19,11 @@ def test_experiment_logging_and_retrieval():
     assert get_resp.status_code == 200
     experiments = get_resp.json()
     assert len(experiments) > 0
+
+
+def test_experiment_delete():
+    created = client.post("/api/v1/experiments/", json={
+        "name": "to delete", "experiment_type": "ml_model", "parameters": {}, "metrics": {}
+    }).json()
+    assert client.delete(f"/api/v1/experiments/{created['id']}").status_code == 204
+    assert client.delete(f"/api/v1/experiments/{created['id']}").status_code == 404

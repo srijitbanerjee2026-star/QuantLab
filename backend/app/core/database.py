@@ -7,7 +7,7 @@ database_url = settings.get_database_url()
 engine = create_engine(
     database_url,
     pool_pre_ping=True,
-    connect_args={"prepare_threshold": None}
+    connect_args={"connect_timeout": 3}
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
