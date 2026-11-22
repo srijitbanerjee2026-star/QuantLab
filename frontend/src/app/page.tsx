@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { GraduationCap } from 'lucide-react';
 import { ModuleId, CacheMetadata } from '@/types';
 import { QuantLabAPI } from '@/lib/api';
 import { MarketAPI } from '@/lib/api/market';
@@ -23,6 +24,7 @@ import { Experiments } from '@/components/ml/Experiments';
 import { RiskAnalysis } from '@/components/risk/RiskAnalysis';
 import { Optimisation } from '@/components/risk/Optimisation';
 import { Backtesting } from '@/components/backtest/Backtesting';
+import { AssistantDrawer } from '@/components/assistant/AssistantDrawer';
 
 import { MultiAssetData } from '@/types';
 
@@ -38,6 +40,7 @@ export default function QuantLabStation() {
   const [focusTicker, setFocusTicker] = useState<string>('AAPL');
   const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
+  const [assistantOpen, setAssistantOpen] = useState<boolean>(false);
 
   // Real connection status: polled from the backend health endpoints (no placeholder values).
   const [status, setStatus] = useState<ConnectionStatus | null>(null);
@@ -108,6 +111,10 @@ export default function QuantLabStation() {
         e.preventDefault();
         setCommandPaletteOpen((prev) => !prev);
       }
+      if ((e.metaKey || e.ctrlKey) && e.key === '/') {
+        e.preventDefault();
+        setAssistantOpen((prev) => !prev);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -171,6 +178,18 @@ export default function QuantLabStation() {
 
         <StatusBar cacheMeta={cacheMeta} activeTicker={focusTicker} />
       </div>
+
+      {!assistantOpen && (
+        <button
+          onClick={() => setAssistantOpen(true)}
+          className="fixed right-5 bottom-10 z-50 h-11 pl-3 pr-4 flex items-center gap-2 bg-blue-400 text-black font-bold text-xs uppercase tracking-wider shadow-[0_6px_24px_rgba(0,0,0,0.6)] hover:bg-blue-300"
+          aria-label="Open the QuantLab Coach assistant (Ctrl+/)"
+          title="Ask the QuantLab Coach (Ctrl+/)"
+        >
+          <GraduationCap className="h-4 w-4" /> Ask Coach
+        </button>
+      )}
+      <AssistantDrawer open={assistantOpen} onClose={() => setAssistantOpen(false)} activeModule={activeModule} focusTicker={focusTicker} />
 
       <CommandPalette
         isOpen={commandPaletteOpen}
