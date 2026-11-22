@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import health, instruments, market_data, features, analytics_pro, strategies, risk, portfolio, ml, experiments, market, analysis
+from app.api.v1.endpoints import health, instruments, market_data, features, analytics_pro, strategies, risk, portfolio, ml, experiments, market, analysis, assistant
 
 api_router = APIRouter()
 api_router.include_router(market.router, prefix="/market", tags=["market"])
@@ -14,3 +14,4 @@ api_router.include_router(portfolio.router, prefix="/portfolio", tags=["portfoli
 api_router.include_router(ml.router, prefix="/ml", tags=["ml"])
 api_router.include_router(experiments.router, prefix="/experiments", tags=["experiments"])
 api_router.include_router(analysis.router, prefix="/analysis", tags=["analysis"])
+api_router.include_router(assistant.router, prefix="/assistant", tags=["assistant"])
