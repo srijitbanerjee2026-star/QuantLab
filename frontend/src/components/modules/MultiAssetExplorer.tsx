@@ -17,6 +17,7 @@ import { ObsidianPanel } from '@/components/ui/ObsidianPanel';
 import { ShortcutModal } from '@/components/ui/ShortcutModal';
 
 // Upgraded Charts
+import { Skeleton } from '@/components/ui/Skeleton';
 import { CorrelationMatrix2 } from '@/components/modules/CorrelationMatrix2';
 import { ReturnsChart2 } from '@/components/modules/ReturnsChart2';
 import { RankingRace2 } from '@/components/modules/RankingRace2';
@@ -452,10 +453,14 @@ export const MultiAssetExplorer: React.FC<MultiAssetExplorerProps> = ({
             onToggleFullscreen={() => toggleFullscreen('correlation')}
             onExportCSV={() => handleExportCSV('correlation')}
           >
-            <CorrelationMatrix2
-              symbols={activeSymbols}
-              matrixData={data?.correlationMatrix || []}
-            />
+            {!data || loading ? (
+              <div className="h-[300px] p-4"><Skeleton variant="chart" height="h-full" /></div>
+            ) : (
+              <CorrelationMatrix2
+                symbols={activeSymbols}
+                matrixData={data.correlationMatrix || []}
+              />
+            )}
           </ObsidianPanel>
         </div>
 

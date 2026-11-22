@@ -17,14 +17,14 @@ export const CardHeader: React.FC<CardHeaderProps> = ({
 }) => {
   return (
     <div
-      className={`h-9 px-4 border-b border-slate-800/60 flex items-center justify-between text-xs select-none ${className}`}
+      className={`h-8 px-3 border-b border-slate-700 bg-[#111] flex items-center justify-between text-xs select-none ${className}`}
     >
-      <div className="flex items-center space-x-2 min-w-0">
-        <span className="text-[10px] uppercase font-bold tracking-[0.08em] text-slate-400 font-mono truncate">
+      <div className="flex items-center space-x-2.5 min-w-0">
+        <span className="text-[11px] uppercase font-bold tracking-[0.08em] text-blue-400 truncate">
           {title}
         </span>
         {badge && (
-          <span className="text-[9px] font-mono font-medium px-1.5 py-0.2 rounded bg-slate-800 text-slate-300 border border-slate-700/50">
+          <span className="text-[9px] font-mono font-medium px-1.5 py-0.2 rounded-full bg-[var(--primary-bg)] text-[var(--primary)] border border-[var(--primary-border)]">
             {badge}
           </span>
         )}

@@ -1,6 +1,8 @@
 // Institutional Quantitative Research Workstation - Core Type Definitions
 
 export type ModuleId =
+  | 'explorer'
+  | 'dashboard'
   | 'multi_asset'
   | 'technicals'
   | 'options_greeks'
@@ -13,6 +15,11 @@ export type ModuleId =
   | 'optimizer';
 
 export type DomainGroupId =
+  | 'overview'
+  | 'markets'
+  | 'research'
+  | 'portfolio'
+  | 'strategies'
   | 'core_research'
   | 'portfolio_risk'
   | 'options_vol'
@@ -40,8 +47,8 @@ export interface CacheMetadata {
   state: CacheState;
   latencyMs: number;
   lastSync: string;
-  rowCount: number;
-  source: 'PostgreSQL/Supabase' | 'Local Cache' | 'yfinance Mock Engine';
+  rowCount?: number;
+  source: string;
 }
 
 // ---------------- Market Data & Features ----------------

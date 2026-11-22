@@ -23,6 +23,8 @@ const POPULAR_TICKERS = [
 ];
 
 const MODULE_COMMANDS: Array<{ id: ModuleId; label: string; group: string }> = [
+  { id: 'dashboard', label: 'Dashboard', group: 'Overview' },
+  { id: 'explorer', label: 'Market Explorer (any ticker)', group: 'Markets' },
   { id: 'multi_asset', label: 'Multi-Asset Explorer (2x2 Matrix)', group: 'Core Research' },
   { id: 'technicals', label: 'Single-Asset Technicals (SMA, RSI, Vol)', group: 'Core Research' },
   { id: 'options_greeks', label: 'Options & Greeks Exposure (GEX, DEX, IV)', group: 'Options & Vol' },

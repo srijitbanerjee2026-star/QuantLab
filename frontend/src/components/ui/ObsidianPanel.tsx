@@ -44,7 +44,7 @@ export const ObsidianPanel: React.FC<ObsidianPanelProps> = ({
         setIsHovered(false);
         setShowSettings(false);
       }}
-      className={`obsidian-panel rounded-lg flex flex-col relative transition-all duration-200 select-none ${
+      className={`obsidian-panel rounded-[10px] flex flex-col relative transition-all duration-200 select-none ${
         isFullscreen
           ? 'fixed inset-4 z-50 bg-[#070b14]/95 shadow-[0_0_80px_rgba(0,0,0,0.9)] border-slate-700'
           : 'h-full'
@@ -56,17 +56,18 @@ export const ObsidianPanel: React.FC<ObsidianPanelProps> = ({
       }}
     >
       {/* 1px Gradient Border Overlay (white/10 to white/0) */}
-      <div className="absolute inset-0 rounded-lg pointer-events-none border border-transparent bg-gradient-to-b from-white/10 to-transparent [mask:linear-gradient(#fff_0_0)_padding-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude]" />
+      <div className="hidden border border-transparent bg-gradient-to-b from-white/10 to-transparent [mask:linear-gradient(#fff_0_0)_padding-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude]" />
 
       {/* Panel Header */}
-      <div className="h-9 min-h-[36px] px-3.5 border-b border-white/[0.06] flex items-center justify-between text-xs font-mono relative z-10 bg-white/[0.015]">
+      <div className="h-8 min-h-[32px] px-3 border-b border-white/[0.06] flex items-center justify-between text-xs font-mono relative z-10 bg-white/[0.015]">
         {/* Left: Title & Subtitle */}
         <div className="flex items-center space-x-2.5 min-w-0">
-          <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-300 truncate">
+          <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: accentColor, boxShadow: `0 0 8px ${accentColor}` }} />
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-blue-400 truncate">
             {title}
           </span>
           {badge && (
-            <span className="text-[9px] px-1.5 py-0.2 rounded font-mono font-semibold bg-white/[0.06] text-slate-400 border border-white/[0.08]">
+            <span className="text-[9px] px-2 py-0.5 rounded-full font-mono font-semibold bg-white/[0.06] text-slate-400 border border-white/[0.08]">
               {badge}
             </span>
           )}

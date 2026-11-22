@@ -14,10 +14,10 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-lg transition-all duration-150 ${
+      className={`rounded-[10px] transition-all duration-200 ${
         elevated
-          ? 'bg-[#0d1322] border border-slate-700/60 shadow-[0_8px_30px_rgba(0,0,0,0.5)]'
-          : 'bg-slate-900/80 backdrop-blur-sm border border-slate-800/60'
+          ? 'bg-[#141414] border border-slate-700 shadow-lg'
+          : 'bg-[#0b0b0b] border border-slate-700 hover:border-slate-600'
       } ${noPadding ? '' : 'p-4'} ${className}`}
       {...props}
     >

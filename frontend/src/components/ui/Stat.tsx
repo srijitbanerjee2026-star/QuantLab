@@ -55,9 +55,9 @@ export const Stat: React.FC<StatProps> = ({
   };
 
   return (
-    <div className={`p-3 bg-slate-900/60 border border-slate-800/60 rounded-lg flex flex-col justify-between ${className}`}>
+    <div className={`relative overflow-hidden p-3.5 bg-[#0b0b0b] border border-slate-700 rounded-[10px] flex flex-col justify-between hover:border-slate-600 transition ${className}`}>
       <div className="flex items-center justify-between space-x-2">
-        <span className="text-[10px] uppercase font-bold tracking-[0.08em] text-slate-400 font-mono truncate">
+        <span className="text-[10px] uppercase font-medium tracking-[0.12em] text-slate-500 truncate">
           {label}
         </span>
         {delta !== undefined && <DeltaBadge value={delta} />}
@@ -66,7 +66,7 @@ export const Stat: React.FC<StatProps> = ({
       <div className="flex items-end justify-between mt-1.5">
         <div className="min-w-0">
           <div
-            className={`text-lg font-bold font-mono tabular-nums tracking-tight leading-none ${
+            className={`text-xl font-semibold font-mono tabular-nums tracking-tight leading-none ${
               valueColor || 'text-white'
             }`}
           >

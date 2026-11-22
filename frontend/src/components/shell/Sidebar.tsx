@@ -16,6 +16,8 @@ import {
   ChevronRight,
   ChevronDown,
   Terminal,
+  LayoutDashboard,
+  Search,
 } from 'lucide-react';
 import { ModuleId, DomainGroupId } from '@/types';
 import { Kbd } from '@/components/ui/Kbd';
@@ -34,44 +36,42 @@ export interface NavGroupConfig {
 
 export const DOMAIN_NAV: NavGroupConfig[] = [
   {
-    id: 'core_research',
-    label: 'CORE RESEARCH',
+    id: 'overview',
+    label: 'OVERVIEW',
+    items: [{ id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard }],
+  },
+  {
+    id: 'markets',
+    label: 'MARKETS',
     items: [
-      { id: 'multi_asset', label: 'Multi-Asset Explorer', icon: BarChart2, badge: 'Matrix' },
-      { id: 'technicals', label: 'Single-Asset Technicals', icon: TrendingUp },
+      { id: 'explorer', label: 'Market Explorer', icon: Search },
+      { id: 'multi_asset', label: 'Cross-Asset Analysis', icon: BarChart2 },
+      { id: 'technicals', label: 'Technical Analysis', icon: TrendingUp },
+      { id: 'options_greeks', label: 'Options & Greeks', icon: Zap },
+      { id: 'macro', label: 'Macro & Rates', icon: Globe },
     ],
   },
   {
-    id: 'portfolio_risk',
-    label: 'PORTFOLIO & RISK',
+    id: 'research',
+    label: 'RESEARCH',
     items: [
-      { id: 'backtest', label: 'Strategy Backtesting', icon: Layers },
-      { id: 'risk_var', label: 'Risk & VaR Analysis', icon: ShieldAlert },
-      { id: 'optimizer', label: 'Portfolio Optimizer', icon: Activity, badge: 'SLSQP' },
+      { id: 'seasonality', label: 'Seasonality', icon: Calendar },
+      { id: 'ml_predictor', label: 'ML Models', icon: Cpu },
+      { id: 'experiments', label: 'Experiments', icon: Database },
     ],
   },
   {
-    id: 'options_vol',
-    label: 'OPTIONS & GREEKS',
+    id: 'portfolio',
+    label: 'PORTFOLIO',
     items: [
-      { id: 'options_greeks', label: 'Gamma & Delta Exposure', icon: Zap, badge: 'GEX' },
+      { id: 'risk_var', label: 'Risk Analysis', icon: ShieldAlert },
+      { id: 'optimizer', label: 'Optimisation', icon: Activity },
     ],
   },
   {
-    id: 'macroeconomics',
-    label: 'MACROECONOMICS',
-    items: [
-      { id: 'macro', label: 'Yield Curve & Sahm Rule', icon: Globe, badge: '0.50%' },
-    ],
-  },
-  {
-    id: 'quant_labs',
-    label: 'QUANT LABS',
-    items: [
-      { id: 'seasonality', label: 'Market Seasonality', icon: Calendar },
-      { id: 'ml_predictor', label: 'ML Direction Predictor', icon: Cpu, badge: 'AI' },
-      { id: 'experiments', label: 'Experiment Logs', icon: Database },
-    ],
+    id: 'strategies',
+    label: 'STRATEGIES',
+    items: [{ id: 'backtest', label: 'Backtesting', icon: Layers }],
   },
 ];
 
@@ -114,24 +114,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`border-r border-white/[0.08] bg-[#070a12] flex flex-col justify-between transition-all duration-200 z-30 select-none ${
-        collapsed ? 'w-16' : 'w-64'
+      className={`border-r border-white/[0.08] bg-[#050505] flex flex-col justify-between transition-all duration-200 z-30 select-none ${
+        collapsed ? 'w-16' : 'w-60'
       }`}
     >
       {/* Brand Header */}
-      <div className="h-12 border-b border-white/[0.08] px-4 flex items-center justify-between">
+      <div className="h-14 border-b border-white/[0.06] px-4 flex items-center justify-between">
         <div className="flex items-center space-x-2.5 min-w-0">
-          <div className="bg-gradient-to-tr from-blue-600 to-cyan-500 p-1.5 rounded-md text-white shadow-[0_0_16px_rgba(59,130,246,0.4)] shrink-0">
+          <div className="bg-blue-400 p-1.5 rounded-md text-slate-950 shrink-0">
             <Terminal className="h-4 w-4" />
           </div>
           {!collapsed && (
             <div className="truncate">
-              <span className="font-mono text-xs font-black tracking-widest text-white uppercase">
+              <span className="text-sm font-semibold tracking-[0.18em] text-white uppercase">
                 QUANTLAB
               </span>
-              <span className="ml-1.5 text-[9px] bg-blue-950 text-blue-400 font-mono px-1 py-0.2 rounded border border-blue-800/60">
-                PRO
-              </span>
+              <span className="block text-[9px] text-slate-500 tracking-wide -mt-0.5">Quantitative Research</span>
+
             </div>
           )}
         </div>
@@ -158,7 +157,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.id)}
-                  className="w-full px-2.5 py-1 text-[9px] font-bold text-slate-500 uppercase tracking-[0.14em] font-mono flex items-center justify-between hover:text-slate-300 transition"
+                  className="w-full px-2.5 py-1.5 text-[10px] font-semibold text-slate-500 uppercase tracking-[0.14em] flex items-center justify-between hover:text-slate-300 transition"
                 >
                   <span>{group.label}</span>
                   <ChevronDown
@@ -180,31 +179,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       type="button"
                       onClick={() => onSelectModule(item.id)}
                       title={collapsed ? item.label : undefined}
-                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-md text-xs font-medium transition-all duration-150 relative group ${
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150 relative group ${
                         isActive
-                          ? 'bg-blue-600/15 text-blue-300 font-semibold shadow-[inset_0_0_14px_rgba(59,130,246,0.18)]'
+                          ? 'bg-white/[0.06] text-white font-semibold'
                           : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
                       }`}
                     >
                       {/* Active Gradient 2px left indicator rail with soft glow */}
                       {isActive && (
-                        <span className="absolute left-0 top-1 bottom-1 w-[2px] bg-gradient-to-b from-blue-400 to-cyan-400 rounded-r shadow-[0_0_10px_rgba(96,165,250,0.9)]" />
+                        <span className="absolute left-0 top-1 bottom-1 w-[3px] bg-teal-400 rounded-r" />
                       )}
 
                       <div className="flex items-center space-x-2.5 min-w-0">
                         <Icon
                           className={`h-4 w-4 shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                            isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'
+                            isActive ? 'text-teal-300' : 'text-slate-500 group-hover:text-slate-300'
                           }`}
                         />
-                        {!collapsed && <span className="truncate text-[11px]">{item.label}</span>}
+                        {!collapsed && <span className="truncate text-[12.5px]">{item.label}</span>}
                       </div>
 
                       {!collapsed && item.badge && (
                         <span
-                          className={`text-[9px] font-mono px-1.5 py-0.2 rounded border uppercase shrink-0 ${
+                          className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full border uppercase shrink-0 ${
                             isActive
-                              ? 'bg-blue-900/60 text-blue-300 border-blue-700/60'
+                              ? 'bg-teal-500/15 text-teal-300 border-teal-500/30'
                               : 'bg-white/[0.04] text-slate-500 border-white/[0.06]'
                           }`}
                         >

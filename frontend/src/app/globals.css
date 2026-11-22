@@ -1,31 +1,74 @@
 @import "tailwindcss";
 
+/* Professional palette: graphite neutrals + teal brand (remaps default Tailwind scales app-wide) */
+@theme {
+  /* Terminal neutrals: true black, no blue tint */
+  --color-slate-100: #ececec;
+  --color-slate-200: #d6d6d6;
+  --color-slate-300: #b8b8b8;
+  --color-slate-400: #9a9a9a;
+  --color-slate-500: #6e6e6e;
+  --color-slate-600: #474747;
+  --color-slate-700: #2a2a2a;
+  --color-slate-800: #1c1c1c;
+  --color-slate-900: #0d0d0d;
+  --color-slate-950: #000000;
+
+  /* Amber = interactive/brand colour (replaces blue + teal scales app-wide) */
+  --color-blue-200: #ffe2b0;
+  --color-blue-300: #ffc766;
+  --color-blue-400: #ff9f1a;
+  --color-blue-500: #f28c00;
+  --color-blue-600: #cc7400;
+  --color-blue-700: #995700;
+  --color-blue-800: #66390a;
+  --color-blue-900: #3d2306;
+  --color-blue-950: #1f1203;
+  --color-teal-200: #ffe2b0;
+  --color-teal-300: #ffc766;
+  --color-teal-400: #ff9f1a;
+  --color-teal-500: #f28c00;
+  --color-teal-600: #cc7400;
+  --color-cyan-400: #4fc3f7;
+  --color-cyan-500: #29b6f6;
+
+  --color-emerald-300: #6ee7a8;
+  --color-emerald-400: #00d26a;
+  --color-emerald-500: #00b058;
+  --color-rose-300: #ff9a9a;
+  --color-rose-400: #ff4d4d;
+  --color-rose-500: #e63939;
+  --color-amber-400: #ffd24a;
+  --color-amber-500: #e6b800;
+}
+
+
 @layer base {
   :root, [data-theme="aurora"] {
-    --canvas: #05070d;
-    --canvas-subtle: #0d1322;
-    --panel-surface: rgba(15, 20, 33, 0.72);
-    --panel-elevated: #0d1322;
-    --border-hairline: rgba(255, 255, 255, 0.08);
+    --canvas: #000000;
+    --canvas-subtle: #0a0a0a;
+    --panel-surface: #0b0b0b;
+    --panel-elevated: #141414;
+    --border-hairline: #2a2a2a;
     --border-hover: rgba(255, 255, 255, 0.18);
 
     /* Semantic Quant Colors */
-    --pos: #34d399;
+    --pos: #00d26a;
     --pos-bg: rgba(52, 211, 153, 0.12);
     --pos-border: rgba(52, 211, 153, 0.35);
     --pos-glow: 0 0 24px rgba(52, 211, 153, 0.25);
 
-    --neg: #fb7185;
+    --neg: #ff4d4d;
     --neg-bg: rgba(251, 113, 133, 0.12);
     --neg-border: rgba(251, 113, 133, 0.35);
     --neg-glow: 0 0 24px rgba(251, 113, 133, 0.25);
 
-    --primary: #60a5fa;
-    --primary-bg: rgba(96, 165, 250, 0.12);
-    --primary-border: rgba(96, 165, 250, 0.35);
-    --primary-glow: 0 0 24px rgba(96, 165, 250, 0.25);
+    --primary: #ff9f1a;
+    --primary-bg: rgba(255, 159, 26, 0.10);
+    --primary-border: rgba(255, 159, 26, 0.35);
+    --primary-glow: none;
 
-    --warn: #fbbf24;
+    --warn: #ffd24a;
     --warn-bg: rgba(251, 191, 36, 0.12);
     --warn-border: rgba(251, 191, 36, 0.35);
     --warn-glow: 0 0 24px rgba(251, 191, 36, 0.25);
@@ -36,14 +79,14 @@
     --accent-glow: 0 0 24px rgba(192, 132, 252, 0.25);
 
     /* Text */
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    --text-primary: #ececec;
+    --text-secondary: #9a9a9a;
+    --text-muted: #6e6e6e;
 
     /* Aurora Blob Colors */
-    --blob-1: rgba(79, 70, 229, 0.08); /* Indigo */
-    --blob-2: rgba(6, 182, 212, 0.06); /* Cyan */
-    --blob-3: rgba(217, 70, 239, 0.04); /* Magenta */
+    --blob-1: rgba(20, 184, 166, 0.05);
+    --blob-2: rgba(56, 189, 248, 0.035);
+    --blob-3: rgba(99, 102, 241, 0.03);
   }
 
   [data-theme="matrix"] {
@@ -91,7 +134,7 @@
   }
 
   ::selection {
-    background-color: rgba(96, 165, 250, 0.3);
+    background-color: rgba(45, 212, 191, 0.3);
     color: #ffffff;
   }
 }
@@ -250,3 +293,42 @@
     animation: none !important;
   }
 }
+
+/* ---- UI refresh ---- */
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  
+}
+
+* { scrollbar-width: thin; scrollbar-color: rgba(148,163,184,0.25) transparent; }
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+button { transition: background-color .15s, border-color .15s, color .15s, transform .15s; }
+button:active:not(:disabled) { transform: scale(0.97); }
+
+html { color-scheme: dark; }
+.obsidian-panel { border-radius: 1rem; }
+
+/* ---- Institutional pass: no decorative effects ---- */
+.aurora-mesh, .film-grain { display: none !important; }
+.obsidian-panel { border-radius: 10px; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; border: 1px solid var(--border-hairline); background: var(--panel-surface); }
+.obsidian-panel:hover { border-color: #323b4a; }
+.font-mono, .tabular-nums { font-family: var(--font-geist-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+/* ---- Bloomberg-terminal pass ---- */
+body { font-family: var(--font-geist-mono), ui-monospace, Menlo, Consolas, monospace !important; font-size: 12px; background: #000; }
+[class*="rounded"]:not(.rounded-full) { border-radius: 2px !important; }
+.obsidian-panel { border-radius: 2px; border: 1px solid #2a2a2a; background: #0b0b0b; }
+.obsidian-panel:hover { border-color: #3a3a3a; }
+::selection { background: rgba(255,159,26,0.35); }
+:focus-visible { outline: 1px solid #ff9f1a; outline-offset: 1px; }
+
+@keyframes tape { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.tape-track { display: flex; width: max-content; animation: tape 60s linear infinite; }
+.tape-track:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .tape-track { animation: none; } }

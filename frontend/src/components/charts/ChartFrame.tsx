@@ -114,7 +114,7 @@ export const ChartFrame: React.FC<ChartFrameProps> = ({
             {emptyMessage}
           </div>
         ) : (
-          <div className="w-full h-full min-h-[240px]">{children}</div>
+          <div className="relative w-full h-full min-h-[240px]"><div className="absolute inset-0">{children}</div></div>
         )}
       </div>
     </Card>
